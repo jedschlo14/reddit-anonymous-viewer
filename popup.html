@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Reddit Anonymous Viewer</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="header">
+            <img src="assets/reddit.png" alt="Reddit Logo" />
+            <span>Anonymous Viewer</span>
+        </div>
+        <div class="contents">
+            <button id="toggleExtension" class="toggle"></button>
+            <button id="toggleAnonymous" class="toggle"></button>
+            <div id="usernameContainer" class="inputContainer">
+                <label>Username:</label>
+                <input type="text" id="username" spellcheck="false" />
+            </div>
+            <div id="aliasContainer" class="inputContainer">
+                <label>Alias:</label>
+                <input type="text" id="alias" spellcheck="false" />
+            </div>
+        </div>
+    </body>
+    <script src="popup.js"></script>
+</html>

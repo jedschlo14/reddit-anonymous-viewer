@@ -1,0 +1,81 @@
+body {
+    width: 159.5px;
+    margin: 0;
+    padding: 8px;
+    font-family: sans-serif;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12pt;
+    font-weight: 700;
+    gap: 8px;
+}
+
+.contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 10pt;
+    font-weight: 600;
+    padding: 8px 1px 1px 1px;
+    gap: 8px;
+}
+
+img {
+    width: 100%;
+}
+
+input {
+    font-size: 14px;
+    border-radius: 6px;
+    line-height: 1.2;
+    padding: 1px 4px;
+    border: 2px solid silver;
+    background-color: lightgray;
+}
+
+.inputContainer {
+    height: 38.3px;
+}
+
+#aliasContainer {
+    display: block;
+}
+
+#aliasContainer.disabled {
+    display: none;
+}
+
+button {
+    height: 23.2px;
+    border: none;
+    cursor: pointer;
+    line-height: 1.2rem;
+    font-size: 14px;
+    font-weight: 900;
+    padding: 2px 5px;
+    border-radius: 100px;
+    color: white;
+    width: 100%;
+}
+
+#toggleExtension {
+    background-color: seagreen;
+}
+
+#toggleExtension.disabled {
+    background-color: firebrick;
+}
+
+#toggleAnonymous {
+    background-color: darkslateblue;
+}
+
+#toggleAnonymous.disabled {
+    background-color: steelblue;
+}

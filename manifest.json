@@ -1,0 +1,23 @@
+{
+    "name": "Reddit Anonymous Viewer",
+    "description": "Browse Reddit without displaying your username.",
+    "manifest_version": 3,
+    "version": "1.0.0",
+    "content_scripts": [
+        {
+            "js": ["contentScript.js"],
+            "matches": ["https://www.reddit.com/*"]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Reddit Anonymous Viewer"
+    },
+    "permissions": ["storage", "tabs"],
+    "icons": {
+        "16": "assets/icons/icon16.png",
+        "32": "assets/icons/icon32.png",
+        "48": "assets/icons/icon48.png",
+        "128": "assets/icons/icon128.png"
+    }
+}
