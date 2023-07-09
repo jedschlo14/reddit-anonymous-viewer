@@ -1,5 +1,9 @@
 # reddit-anonymous-viewer
-A chrome extension to browse Reddit anonymously
+A chrome extension to browse Reddit anonymously. 
+
+Browse Reddit in public while remaining anonymous.
+
+This extension will find instances of your Reddit username and replace it locally with either "[Anonymous]" or an alias of your choice.
 
 # Installation
 1. Download repository
