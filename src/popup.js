@@ -1,3 +1,17 @@
+const getToggleState = async (id) => {
+    const state = await chrome.storage.local.get(id);
+    if (state[id] == undefined) return false;
+    return state[id];
+};
+
+const fetchToggleState = (id) => {
+    chrome.storage.local.get(id, (result) => {
+        const toggleState = result[id] == undefined ? true : result[id];
+        chrome.storage.local.set({ [id]: toggleState });
+        toggleButtonState(id, toggleState);
+    });
+};
+
 const fetchInputValue = (id) => {
     chrome.storage.local.get(id, (result) => {
         if (result[id] == undefined) {
@@ -5,6 +19,15 @@ const fetchInputValue = (id) => {
             document.getElementById(id).value = "u/";
         } else document.getElementById(id).value = result[id];
     });
+};
+
+const handleToggleChange = (id) => {
+    const toggleButton = document.getElementById(id);
+    const newToggleState = toggleButton.classList.contains("disabled");
+    chrome.storage.local.set({ [id]: newToggleState }, () => {
+        reloadRedditTabs(id == "toggleExtension");
+    });
+    toggleButtonState(id, newToggleState);
 };
 
 const handleInputChange = (id) => {
@@ -16,40 +39,10 @@ const handleInputChange = (id) => {
                 [id]: input.value,
             },
             () => {
-                reloadRedditTabs();
+                reloadRedditTabs(false);
             }
         );
     else fetchInputValue(id);
-};
-
-const fetchToggleState = (id) => {
-    chrome.storage.local.get(id, (result) => {
-        const toggleState = result[id] == undefined ? true : result[id];
-        chrome.storage.local.set({ [id]: toggleState });
-        toggleButtonState(id, toggleState);
-    });
-};
-
-const handleToggleChange = (id) => {
-    const toggleButton = document.getElementById(id);
-    const newToggleState = toggleButton.classList.contains("disabled");
-    chrome.storage.local.set({ [id]: newToggleState }, () => {
-        reloadRedditTabs();
-    });
-    toggleButtonState(id, newToggleState);
-};
-
-const reloadRedditTabs = () => {
-    chrome.tabs.query(
-        {
-            url: "https://www.reddit.com/*",
-        },
-        (tabs) => {
-            for (let tab of tabs) {
-                chrome.tabs.reload(tab.id);
-            }
-        }
-    );
 };
 
 const toggleButtonState = (id, newToggleState) => {
@@ -73,6 +66,20 @@ const toggleButtonState = (id, newToggleState) => {
             toggleButton.innerText = "Alias Mode";
         }
     }
+};
+
+const reloadRedditTabs = async (isExtensionToggled) => {
+    if (isExtensionToggled || (await getToggleState("toggleExtension")))
+        chrome.tabs.query(
+            {
+                url: "https://www.reddit.com/*",
+            },
+            (tabs) => {
+                for (let tab of tabs) {
+                    chrome.tabs.reload(tab.id);
+                }
+            }
+        );
 };
 
 // when popup opens, set input values to stored values
