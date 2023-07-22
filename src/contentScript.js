@@ -1,7 +1,7 @@
-const getToggleValue = async (id) => {
-    const value = await chrome.storage.local.get(id);
-    if (value[id] == undefined) return false;
-    return value[id];
+const getToggleState = async (id) => {
+    const state = await chrome.storage.local.get(id);
+    if (state[id] == undefined) return false;
+    return state[id];
 };
 
 const getInputValue = async (id) => {
@@ -25,8 +25,8 @@ const findAndReplaceText = (find, replace) => {
 };
 
 const findAndReplaceUsername = async () => {
-    const isEnabled = await getToggleValue("toggleExtension");
-    const isAnonymous = await getToggleValue("toggleAnonymous");
+    const isEnabled = await getToggleState("toggleExtension");
+    const isAnonymous = await getToggleState("toggleAnonymous");
     const username = await getInputValue("username");
     const alias = await getInputValue("alias");
     if (isEnabled && username != "") {
