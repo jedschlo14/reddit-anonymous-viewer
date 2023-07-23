@@ -24,12 +24,23 @@ const findAndReplaceText = (find, replace) => {
     for (let element of elements) element.innerText = replace;
 };
 
-const findAndReplaceUsername = async () => {
+const getUsername = () => {
+    return document.querySelectorAll(
+        "#email-collection-tooltip-id>span>span"
+    )[0].textContent;
+};
+
+const getConfig = async () => {
     const isEnabled = await getToggleState("toggleExtension");
     const isAnonymous = await getToggleState("toggleAnonymous");
-    const username = await getInputValue("username");
     const alias = await getInputValue("alias");
-    if (isEnabled && username != "") {
+    return { isEnabled, isAnonymous, alias, username };
+};
+
+const findAndReplaceUsername = async () => {
+    console.log(username);
+    const { isEnabled, isAnonymous, alias } = await getConfig();
+    if (isEnabled) {
         if (isAnonymous) findAndReplaceText(username, "[Anonymous]");
         else findAndReplaceText(username, alias);
     }
@@ -37,6 +48,9 @@ const findAndReplaceUsername = async () => {
         if (isAnonymous) document.title = "[Anonymous]";
         else document.title = alias + " (u/" + alias + ") - Reddit";
 };
+
+const username = getUsername();
+findAndReplaceUsername(username);
 
 // when page updates, find and replace instances of username
 const observer = new MutationObserver(findAndReplaceUsername);

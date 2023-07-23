@@ -32,7 +32,7 @@ const handleToggleChange = (id) => {
 
 const handleInputChange = (id) => {
     const input = document.getElementById(id);
-    if (input.value == "") usernameInput.value = "u/";
+    if (input.value == "") input.value = "u/";
     if (input.value.match(/^u\/[A-Za-z0-9_-]*$/g))
         chrome.storage.local.set(
             {
@@ -84,16 +84,10 @@ const reloadRedditTabs = async (isExtensionToggled) => {
 
 // when popup opens, set input values to stored values
 document.body.onload = () => {
-    fetchInputValue("username");
     fetchInputValue("alias");
     fetchToggleState("toggleExtension");
     fetchToggleState("toggleAnonymous");
 };
-
-// handle username changes
-document
-    .getElementById("username")
-    .addEventListener("input", () => handleInputChange("username"));
 
 // handle alias changes
 document
